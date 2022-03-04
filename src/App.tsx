@@ -10,30 +10,35 @@ import Box from '@mui/system/Box';
 import Typography from '@mui/material/Typography';
 
 
-const card = (
-    
-  <React.Fragment>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          sprite
-        </Typography>
-        <Typography variant="h5" component="div">
-          
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          name: {pokemonObject.name}
-        </Typography>
-
-        <Typography variant="body2">
-          other info
-        </Typography>
-      </CardContent>
-  </React.Fragment>
-)
-
 
 function App() {
   const [pokemonName, setPokemonName] = useState("");
+  const [pokemon, setPokemon] = useState({
+    name: "",
+    sprite:"",
+    type:""
+  });
+
+  var card = (
+    
+    <React.Fragment>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            sprite
+          </Typography>
+          <Typography variant="h5" component="div">
+            {pokemon.name}
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            
+          </Typography>
+  
+          <Typography variant="body2">
+            {pokemon.type}
+          </Typography>
+        </CardContent>
+    </React.Fragment>
+  )
 
   return(
     <div className='App-header'>
@@ -43,19 +48,26 @@ function App() {
           setPokemonName(event.target.value);
         }}
         />
-      <Button variant="contained" onClick={() => pokemonData(pokemonName)}>
+      <Button variant="contained" onClick={() => pokemonData(pokemonName).then((obj) => {
+            setPokemon({
+              name:obj.name,
+              sprite:obj.sprite,
+              type:obj.types
+            })
+          }
+        )
+      }>
         Pokemon
       </Button>
       <Box sx={{ minWidth: 275 }}>
         <Card variant="outlined">{card}</Card>
       </Box>
       <p>
-        
+        {pokemon.name}
       </p>
     </div>
 
   )
-  
 }
 
 export default App;

@@ -8,16 +8,14 @@ import Axios from "axios";
         types: [],
     };
 
-    export const pokemonData = async (pokemonName: any) => {
-        await Axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => {
-            pokemonObject.name = response.data.name;
-            pokemonObject.sprite = response.data.sprites[5];
-            pokemonObject.types = response.data.types;
-            console.log(pokemonObject.name)
+    export var pokemonData = async (pokemonName: any) => {
+        return await Axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => {
+            return{
+                name: response.data.name,
+                sprite: response.data.sprites.front_default,
+                types: response.data.types[0].type.name
+            }
         })
-        //return (
-        //pokemonObject
-        //);
     }
 
     export const pokedexData = () => {

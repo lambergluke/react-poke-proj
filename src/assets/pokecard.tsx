@@ -15,6 +15,7 @@ const card = (
         </React.Fragment>
 )
 
+
 export const PokeCard = () =>{
     return(
         <Box sx={{ minWidth: 275 }}>
