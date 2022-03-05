@@ -8,14 +8,29 @@ import Axios from "axios";
         types: [],
     };
 
+    function validateToken(token: string) {
+        return token;
+    }
+
     export var pokemonData = async (pokemonName: any) => {
-        return await Axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => {
+        try{
+            return await Axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => {
+                console.log(response.data.name)
+                console.log(response.data.sprites.front_default)
+                console.log(response.data.types[0].type.name)
+                return{
+                    name: validateToken(response.data.name || 'default-value'),
+                    sprite: response.data.sprites.front_default,
+                    types: response.data.types[0].type.name
+                }
+            })
+        } catch(error) {
             return{
-                name: response.data.name,
-                sprite: response.data.sprites.front_default,
-                types: response.data.types[0].type.name
+                name: 'default-value',
+                sprite: 'default-value',
+                types: 'default-value'
             }
-        })
+        }    
     }
 
     export const pokedexData = () => {

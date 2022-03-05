@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState } from "react";
 import './App.css';
-import { pokemonData,pokemonObject } from './api/Pokerequest'
-import { pokedexData } from './api/Pokerequest';
+import { pokemonData } from './api/Pokerequest'
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/system/Box';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 
 
 
@@ -23,9 +23,7 @@ function App() {
     
     <React.Fragment>
         <CardContent>
-          <Typography variant="h5" component="div">
-            sprite
-          </Typography>
+          <img src={pokemon.sprite} />
           <Typography variant="h5" component="div">
             {pokemon.name}
           </Typography>
@@ -40,14 +38,55 @@ function App() {
     </React.Fragment>
   )
 
+  function tBox(pokeName: string) {
+    if (pokeName === 'default-value'){
+      return(
+      <h1>
+        <TextField 
+            error={true} 
+            label="Pokemon Name" 
+            helperText="Invalid name entered."
+            onChange={(event) => {
+              setPokemonName(event.target.value);
+              }
+            }
+        />
+      </h1>
+        )
+    } return(
+        <h1>
+          <TextField 
+              error={false} 
+              label="Pokemon Name" 
+              helperText=""
+              onChange={(event) => {
+                setPokemonName(event.target.value);
+                }
+              }
+          />
+        </h1>
+      )
+
+  }
+
+  function cardBox(pokeName: string) {
+    if (pokeName === 'default-value' || pokeName == undefined) {
+      return(
+        <h1>
+        </h1>
+      )
+    } return(
+        <h1>
+          <Box sx={{ minWidth: 275 }}>
+          <Card variant="outlined">{card}</Card>
+          </Box>
+        </h1>
+    )
+  }
+
   return(
     <div className='App-header'>
-      <input
-        type="text"
-        onChange={(event) => {
-          setPokemonName(event.target.value);
-        }}
-        />
+      {tBox(pokemon.name)}
       <Button variant="contained" onClick={() => pokemonData(pokemonName).then((obj) => {
             setPokemon({
               name:obj.name,
@@ -57,14 +96,12 @@ function App() {
           }
         )
       }>
-        Pokemon
+        Get Info
       </Button>
-      <Box sx={{ minWidth: 275 }}>
+      {cardBox(pokemon.name)}
+{/*     <Box sx={{ minWidth: 275 }}>
         <Card variant="outlined">{card}</Card>
-      </Box>
-      <p>
-        {pokemon.name}
-      </p>
+      </Box> */}
     </div>
 
   )
