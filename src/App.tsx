@@ -20,7 +20,6 @@ function App() {
   });
 
   var card = (
-    
     <React.Fragment>
         <CardContent>
           <img src={pokemon.sprite} />
@@ -99,9 +98,6 @@ function App() {
         Get Info
       </Button>
       {cardBox(pokemon.name)}
-{/*     <Box sx={{ minWidth: 275 }}>
-        <Card variant="outlined">{card}</Card>
-      </Box> */}
     </div>
 
   )
