@@ -7,9 +7,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/system/Box';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-
-
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import CssTextField from './Components/CssTextField'
 
 function App() {
   const [pokemonName, setPokemonName] = useState("");
@@ -18,7 +17,10 @@ function App() {
     sprite:"",
     type:""
   });
+  var [val, setVal] = useState();
 
+
+  
   var card = (
     <React.Fragment>
         <CardContent>
@@ -36,40 +38,58 @@ function App() {
         </CardContent>
     </React.Fragment>
   )
+  
+  var getData = () => pokemonData(pokemonName).then((obj) => {
+    setPokemon({
+        name:obj.name,
+        sprite:obj.sprite,
+        type:obj.types
+      })
+    }
+  )
 
   function tBox(pokeName: string) {
+
     if (pokeName === 'default-value'){
       return(
-      <h1>
-        <TextField 
-            error={true} 
-            label="Pokemon Name" 
-            helperText="Invalid name entered."
-            onChange={(event) => {
-              setPokemonName(event.target.value);
-              }
-            }
-        />
-      </h1>
-        )
-    } return(
-        <h1>
+      <h1 className="App-textbox">
           <TextField 
-              error={false} 
+              color="primary"
+              error={true} 
               label="Pokemon Name" 
-              helperText=""
+              helperText="Invalid name entered."
               onChange={(event) => {
                 setPokemonName(event.target.value);
                 }
               }
           />
-        </h1>
+      </h1>
+        )
+    } return(
+          <h1 className="App-textbox">
+            <CssTextField
+                value={val}
+                variant="outlined" 
+                color="primary"
+                error={false} 
+                label="Pokemon Name"
+                helperText=""
+                InputLabelProps={{
+                  style: { color: 'white' },
+                }}
+                onChange={(event) => {
+                  setPokemonName(event.target.value);
+                  }
+                }
+                sx={{input: {color: 'white'}}}
+            />
+          </h1>
       )
 
   }
 
   function cardBox(pokeName: string) {
-    if (pokeName === 'default-value' || pokeName == undefined) {
+    if (pokeName === 'default-value' || pokeName === "") {
       return(
         <h1>
         </h1>
@@ -84,22 +104,19 @@ function App() {
   }
 
   return(
-    <div className='App-header'>
-      {tBox(pokemon.name)}
-      <Button variant="contained" onClick={() => pokemonData(pokemonName).then((obj) => {
-            setPokemon({
-              name:obj.name,
-              sprite:obj.sprite,
-              type:obj.types
-            })
-          }
-        )
-      }>
-        Get Info
-      </Button>
-      {cardBox(pokemon.name)}
-    </div>
-
+    
+      <div className='App-header'>
+        {tBox(pokemon.name)}
+        <Button 
+          variant="contained" 
+          onClick={getData}
+          color="primary"
+        >
+          Get Info
+        </Button>
+        {cardBox(pokemon.name)}
+      </div>
+    
   )
 }
 
