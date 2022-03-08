@@ -14,6 +14,7 @@ import Axios from "axios";
 
     export var pokemonData = async (pokemonName: any) => {
         try{
+            pokemonName=String(pokemonName).toLowerCase()
             return await Axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`).then((response) => {
                 console.log(response.data.name)
                 console.log(response.data.sprites.front_default)

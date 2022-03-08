@@ -9,6 +9,10 @@ import Box from '@mui/system/Box';
 import Typography from '@mui/material/Typography';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import CssTextField from './Components/CssTextField'
+import Grid from '@mui/material/Grid';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import cardBox from './Components/PokeCard';
 
 function App() {
   const [pokemonName, setPokemonName] = useState("");
@@ -17,28 +21,7 @@ function App() {
     sprite:"",
     type:""
   });
-  var [val, setVal] = useState();
 
-
-  
-  var card = (
-    <React.Fragment>
-        <CardContent>
-          <img src={pokemon.sprite} />
-          <Typography variant="h5" component="div">
-            {pokemon.name}
-          </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            
-          </Typography>
-  
-          <Typography variant="body2">
-            {pokemon.type}
-          </Typography>
-        </CardContent>
-    </React.Fragment>
-  )
-  
   var getData = () => pokemonData(pokemonName).then((obj) => {
     setPokemon({
         name:obj.name,
@@ -68,7 +51,6 @@ function App() {
     } return(
           <h1 className="App-textbox">
             <CssTextField
-                value={val}
                 variant="outlined" 
                 color="primary"
                 error={false} 
@@ -88,24 +70,12 @@ function App() {
 
   }
 
-  function cardBox(pokeName: string) {
-    if (pokeName === 'default-value' || pokeName === "") {
-      return(
-        <h1>
-        </h1>
-      )
-    } return(
-        <h1>
-          <Box sx={{ minWidth: 275 }}>
-          <Card variant="outlined">{card}</Card>
-          </Box>
-        </h1>
-    )
-  }
-
   return(
     
       <div className='App-header'>
+        <h1>
+          Pokemon Lookup
+        </h1>
         {tBox(pokemon.name)}
         <Button 
           variant="contained" 
@@ -114,7 +84,8 @@ function App() {
         >
           Get Info
         </Button>
-        {cardBox(pokemon.name)}
+        {cardBox(pokemon.name,pokemon)}
+        
       </div>
     
   )
