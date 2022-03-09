@@ -1,4 +1,3 @@
-import React from 'react';
 import Axios from "axios";
 
 
@@ -28,6 +27,7 @@ import Axios from "axios";
                 }
             })
         } catch(error) {
+            console.log("Couldn't find pokemon")
             return{
                 name: 'default-value',
                 spriteNormal: 'default-value',
@@ -37,11 +37,5 @@ import Axios from "axios";
         }    
     }
 
-    export const pokedexData = () => {
-        Axios.get("https://pokeapi.co/api/v2/pokedex/kanto").then((response) => {console.log(response.data.region)})
-      return (
-        {pokedexData}
-      );
-    }
 
 //export default Apirequest;

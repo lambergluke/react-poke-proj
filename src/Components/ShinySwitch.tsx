@@ -2,7 +2,6 @@ import * as React from 'react';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState } from 'react';
-import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from 'recoil';
 
 export default function useSwitch() {
   
@@ -34,15 +33,3 @@ export default function useSwitch() {
     </div>
   )}
 }
-
-
-//return (
-//    <FormControlLabel control={
-//        <Switch
-//        checked={checked}
-//        onChange={handleChange}
-//        inputProps={{ 'aria-label': 'controlled' }}
-//        />}
-//    label="Shiny"
-//    />
-//  );
