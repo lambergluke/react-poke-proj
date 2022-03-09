@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { RecoilRoot } from 'recoil';
 
 
 const theme = createTheme({
@@ -28,12 +29,13 @@ const theme = createTheme({
 });
 
 ReactDOM.render(
-  
+  <RecoilRoot>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
     </React.StrictMode>
+  </RecoilRoot>
   ,
   document.getElementById('root')
 );

@@ -3,30 +3,41 @@ import { useState } from "react";
 import './App.css';
 import { pokemonData } from './api/Pokerequest'
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Box from '@mui/system/Box';
-import Typography from '@mui/material/Typography';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import CssTextField from './Components/CssTextField'
-import Grid from '@mui/material/Grid';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import cardBox from './Components/PokeCard';
+import {RecoilRoot,atom,selector,useRecoilState,useRecoilValue,} from 'recoil';
+import PokeCard from './Components/PokeCard';
 
 function App() {
+
+  /* const pokemonNameState = atom({
+    key: 'pokemonNameState',
+    default: ""
+  }); */
+
+/*   const pokemonState = atom({
+    key: 'pokemonState',
+    default:{    
+      pokeName: "",
+      spriteNormal:"",
+      type:"",
+      spriteShiny:""}   
+  }); */
+
   const [pokemonName, setPokemonName] = useState("");
   const [pokemon, setPokemon] = useState({
-    name: "",
-    sprite:"",
-    type:""
+      pokeName: "",
+      spriteNormal:"",
+      type:"",
+      spriteShiny:""
   });
 
   var getData = () => pokemonData(pokemonName).then((obj) => {
     setPokemon({
-        name:obj.name,
-        sprite:obj.sprite,
-        type:obj.types
+        pokeName:obj.name,
+        spriteNormal:obj.spriteNormal,
+        type:obj.types,
+        spriteShiny:obj.spriteShiny
       })
     }
   )
@@ -45,6 +56,7 @@ function App() {
                 setPokemonName(event.target.value);
                 }
               }
+              sx={{input: {color: 'white'}}}
           />
       </h1>
         )
@@ -71,12 +83,12 @@ function App() {
   }
 
   return(
-    
       <div className='App-header'>
         <h1>
           Pokemon Lookup
         </h1>
-        {tBox(pokemon.name)}
+        {tBox(pokemon.pokeName)}
+
         <Button 
           variant="contained" 
           onClick={getData}
@@ -84,10 +96,9 @@ function App() {
         >
           Get Info
         </Button>
-        {cardBox(pokemon.name,pokemon)}
-        
+        {/* {PokeCard(pokemon.pokeName,pokemon)} */}
+        <PokeCard pokeName={pokemon.pokeName} pokemonInfo={pokemon}/>
       </div>
-    
   )
 }
 
