@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import React from "react";
 import useSwitch from "./ShinySwitch";
 
-function PokeCard(props: any/* pokeName: string,pokemonInfo: any */) {
+function PokeCard(props: any) {
 
   const {render, checked} = useSwitch()
 

@@ -5,11 +5,6 @@ import { useState } from 'react';
 
 export default function useSwitch() {
   
-/*   const switchState = atom({
-    key: 'switchState',
-    default: false
-  }); */
-
   const [checked, setChecked] = useState(false);
 
   const handleChange = (event: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
